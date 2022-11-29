@@ -7,7 +7,13 @@
 
 import Cocoa
 
-class ViewController: NSViewController {
+@objc class ViewController: NSViewController, MyEditableThing {
+
+    @objc dynamic var value = 0.0 {
+        didSet {
+            print("VC value \(value)")
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +27,10 @@ class ViewController: NSViewController {
         }
     }
 
-
+    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
+        if let hostingController = segue.destinationController as? MyHostingController {
+            hostingController.delegate = self
+        }
+    }
 }
 
