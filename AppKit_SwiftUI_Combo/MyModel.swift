@@ -8,5 +8,6 @@
 import Foundation
 
 class MyModel: ObservableObject {
+    // This is the "single source of truth" for this demo app
     @Published var value = 11.0
 }

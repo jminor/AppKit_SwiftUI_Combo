@@ -17,6 +17,7 @@ class MyHostingController: NSHostingController<MyContentView>
 {
     required init?(coder: NSCoder) {
         // This temporary model will get replaced later
+        // when this view is installed via the embed segue in ViewController
         super.init(rootView: MyContentView(model: MyModel()))
     }
 }

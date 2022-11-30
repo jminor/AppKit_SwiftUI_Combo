@@ -9,6 +9,8 @@ import SwiftUI
 
 struct MyContentView: View {
 
+    // This points to the single source of truth
+    // The actual instance will be provided to this view.
     @ObservedObject var model: MyModel
 
     var body: some View {

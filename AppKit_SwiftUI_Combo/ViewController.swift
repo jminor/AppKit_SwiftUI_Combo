@@ -9,6 +9,8 @@ import Cocoa
 
 class ViewController: NSViewController {
 
+    // This is where we actually construct the "single source of truth"
+    // as a MyModel instance. Everyone else will reference this one.
     var model = MyModel()
 
     // Expose this so that controls in the Storyboard can bind to "self.value"
@@ -59,7 +61,9 @@ class ViewController: NSViewController {
 
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         if let hostingController = segue.destinationController as? MyHostingController {
-            // Use OUR model
+            // When the hosting controller's SwiftUI view is embedded,
+            // we tell it to use OUR model, instead of the temp one it
+            // got at the time it was constructed.
             hostingController.rootView.model = model
         }
     }
