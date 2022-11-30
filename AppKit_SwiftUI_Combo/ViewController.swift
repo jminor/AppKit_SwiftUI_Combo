@@ -62,7 +62,7 @@ class ViewController: NSViewController {
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         if let hostingController = segue.destinationController as? MyHostingController {
             // Use OUR model
-            hostingController.model = model
+            hostingController.rootView.model = model
         }
     }
 }
