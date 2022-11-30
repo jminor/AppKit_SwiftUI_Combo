@@ -13,6 +13,7 @@
 		ECB848CC2935DCAA00B68F4E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ECB848CA2935DCAA00B68F4E /* Main.storyboard */; };
 		ECB848D42935DF6900B68F4E /* MyHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB848D32935DF6900B68F4E /* MyHostingController.swift */; };
 		ECB848D62935F8FF00B68F4E /* MyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB848D52935F8FF00B68F4E /* MyModel.swift */; };
+		ECB848D829372D5900B68F4E /* MyContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECB848D729372D5900B68F4E /* MyContentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		ECB848CD2935DCAA00B68F4E /* AppKit_SwiftUI_Combo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = AppKit_SwiftUI_Combo.entitlements; sourceTree = "<group>"; };
 		ECB848D32935DF6900B68F4E /* MyHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyHostingController.swift; sourceTree = "<group>"; };
 		ECB848D52935F8FF00B68F4E /* MyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyModel.swift; sourceTree = "<group>"; };
+		ECB848D729372D5900B68F4E /* MyContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyContentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				ECB848CD2935DCAA00B68F4E /* AppKit_SwiftUI_Combo.entitlements */,
 				ECB848D32935DF6900B68F4E /* MyHostingController.swift */,
 				ECB848D52935F8FF00B68F4E /* MyModel.swift */,
+				ECB848D729372D5900B68F4E /* MyContentView.swift */,
 			);
 			path = AppKit_SwiftUI_Combo;
 			sourceTree = "<group>";
@@ -141,6 +144,7 @@
 				ECB848C72935DCA800B68F4E /* ViewController.swift in Sources */,
 				ECB848C52935DCA800B68F4E /* AppDelegate.swift in Sources */,
 				ECB848D62935F8FF00B68F4E /* MyModel.swift in Sources */,
+				ECB848D829372D5900B68F4E /* MyContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

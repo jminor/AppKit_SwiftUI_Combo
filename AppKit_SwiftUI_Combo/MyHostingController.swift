@@ -9,45 +9,6 @@ import Foundation
 import SwiftUI
 
 
-struct MyContentView: View {
-
-    @Binding var val: Double
-
-    var body: some View {
-        VStack(alignment: .leading) {
-            Text("SwiftUI")
-            Divider()
-            Slider(value: $val,
-                   in: 0...100
-            ) { editing in
-                if editing {
-                    print("MyContentView slider began edit: \(val)")
-                }else{
-                    print("MyContentView slider finished edit: \(val)")
-                }
-            }
-            HStack {
-                Text("\(Int(val))")
-                Spacer()
-                Button("-") {
-                    val -= 1
-                    print("-: \(val)")
-                }
-                Button("+") {
-                    val += 1
-                    print("+: \(val)")
-                }
-            }
-            Spacer()
-        }
-        .onChange(of: val) { newValue in
-            // this happens on every change during a slider drag
-            print("MyContentView value changed: \(val)")
-        }
-        .padding()
-    }
-}
-
 // This fella here is the shim between AppKit and SwiftUI
 // It acts as an AppKit NSViewController, but it "hosts"
 // a SwiftUI view inside of it. This controller should be
