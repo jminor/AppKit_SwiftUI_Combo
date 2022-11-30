@@ -25,34 +25,38 @@ struct MyContentView: View {
                     print("MyContentView slider finished edit: \(model.value)")
                 }
             }
-            HStack {
-                Text("\(Int(model.value))")
-                Spacer()
-                Button("-") {
-                    model.value -= 1
-                    print("-: \(model.value)")
-                }
-                Button("+") {
-                    model.value += 1
-                    print("+: \(model.value)")
-                }
-            }
+            ValueAdjuster(value: $model.value)
             Spacer()
         }
-//        .onChange(of: model.value) { newValue in
-//            // this happens on every change during a slider drag
-//            print("MyContentView value changed: \($model.value)")
-//        }
+        .onChange(of: model.value, perform: { newValue in
+            print("MyContentView onChange: \(newValue)")
+        })
         .padding()
     }
 }
 
-/*
 struct MyContentView_Previews:
     PreviewProvider {
     static var previews: some View {
-        @State var demoVal = 6.0
-        MyContentView(val: $demoVal)
+        MyContentView(model: MyModel())
     }
 }
-*/
+
+struct ValueAdjuster: View {
+    @Binding var value: Double
+
+    var body: some View {
+        HStack {
+            Text("\(value)")
+            Spacer()
+            Button("-") {
+                value -= 1
+                print("-: \(value)")
+            }
+            Button("+") {
+                value += 1
+                print("+: \(value)")
+            }
+        }
+    }
+}

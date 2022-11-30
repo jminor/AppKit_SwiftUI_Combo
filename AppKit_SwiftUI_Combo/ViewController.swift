@@ -12,7 +12,8 @@ class ViewController: NSViewController {
     var model = MyModel()
 
     // Exposed this so that controls in the Storyboard can bind to .value
-    @objc dynamic var value: Double {
+    @objc dynamic var value: Double
+    {
         get {
             return model.value
         }
@@ -39,9 +40,16 @@ class ViewController: NSViewController {
         // Watch for changes in the model (e.g. from MyContentView)
         // It will stop listening when 'listener' is deallocated (or cancelled)
         listener = model.$value.sink { newValue in
+            //print("Changing from \(self.model.value) to \(newValue)")
+            // We need to send both willChangeValue and didChangeValue
+            // but this 'sink' happens during the @Published property's willSet
+            // so we can only do willChangeValue right here.
             self.willChangeValue(for: \.value)
-            // already changed actually...
-            self.didChangeValue(for: \.value)
+            // Queue up the didChangeValue to happen on the main thread very soon
+            // TODO: Is there a better way to guarantee the right order happens?
+            DispatchQueue.main.async {
+                self.didChangeValue(for: \.value)
+            }
         }
     }
 

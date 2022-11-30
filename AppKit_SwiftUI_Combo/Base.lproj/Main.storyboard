@@ -773,7 +773,7 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                                 <connections>
-                                    <binding destination="XfG-lQ-9wD" name="value" keyPath="self.value" id="VuR-0G-rxT"/>
+                                    <binding destination="XfG-lQ-9wD" name="value" keyPath="self.value" id="DUh-Dm-lw8"/>
                                 </connections>
                             </textField>
                         </subviews>
