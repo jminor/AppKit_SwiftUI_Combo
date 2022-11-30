@@ -50,11 +50,9 @@ struct ValueAdjuster: View {
             Spacer()
             Button("-") {
                 value -= 1
-//                print("-: \(value)")
             }
             Button("+") {
                 value += 1
-//                print("+: \(value)")
             }
         }
     }

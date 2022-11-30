@@ -16,7 +16,7 @@ import SwiftUI
 class MyHostingController: NSHostingController<MyContentView>
 {
     required init?(coder: NSCoder) {
-        // This tempModel will get replaced later
+        // This temporary model will get replaced later
         super.init(rootView: MyContentView(model: MyModel()))
     }
 }

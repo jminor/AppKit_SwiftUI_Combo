@@ -11,7 +11,7 @@ class ViewController: NSViewController {
 
     var model = MyModel()
 
-    // Exposed this so that controls in the Storyboard can bind to .value
+    // Expose this so that controls in the Storyboard can bind to "self.value"
     @objc dynamic var value: Double
     {
         get {
@@ -24,12 +24,10 @@ class ViewController: NSViewController {
 
     @IBAction func more(_ sender: Any?) {
         model.value += 1
-//        print("more: \(model.value)")
     }
 
     @IBAction func less(_ sender: Any?) {
         model.value -= 1
-//        print("less: \(model.value)")
     }
 
     var listener: Any?
@@ -53,11 +51,11 @@ class ViewController: NSViewController {
         }
     }
 
-    override var representedObject: Any? {
-        didSet {
-        // Update the view, if already loaded.
-        }
-    }
+//    override var representedObject: Any? {
+//        didSet {
+//        // Update the view, if already loaded.
+//        }
+//    }
 
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         if let hostingController = segue.destinationController as? MyHostingController {
