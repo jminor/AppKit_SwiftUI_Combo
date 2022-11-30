@@ -7,12 +7,27 @@
 
 import Cocoa
 
-@objc class ViewController: NSViewController, MyEditableThing {
+class ViewController: NSViewController {
 
-    @objc dynamic var value = 0.0 {
-        didSet {
-            print("VC value \(value)")
+    var model: MyModel?
+
+    @objc dynamic var value: Double {
+        get {
+            return model?.value ?? 11
         }
+        set {
+            model?.value = newValue
+        }
+    }
+
+    @IBAction func more(_ sender: Any?) {
+        model?.value += 1// model.value + 1
+        print("more: \(model?.value ?? -1)")
+    }
+
+    @IBAction func less(_ sender: Any?) {
+        model?.value -= 1// model.value - 1
+        print("less: \(model?.value ?? -1)")
     }
 
     override func viewDidLoad() {
@@ -29,7 +44,8 @@ import Cocoa
 
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         if let hostingController = segue.destinationController as? MyHostingController {
-            hostingController.delegate = self
+//            hostingController.setModel(model)
+            model = hostingController.model
         }
     }
 }

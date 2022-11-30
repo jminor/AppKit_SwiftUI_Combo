@@ -11,56 +11,40 @@ import SwiftUI
 
 struct MyContentView: View {
 
-    @Binding var value: Double
+    @Binding var val: Double
 
     var body: some View {
         VStack(alignment: .leading) {
             Text("SwiftUI")
             Divider()
-            Slider(value: $value,
+            Slider(value: $val,
                    in: 0...100
             ) { editing in
                 if editing {
-                    print("MyContentView slider began edit: \(value)")
+                    print("MyContentView slider began edit: \(val)")
                 }else{
-                    print("MyContentView slider finished edit: \(value)")
+                    print("MyContentView slider finished edit: \(val)")
                 }
             }
-            .onChange(of: value) { newValue in
-                // this happens on every change during a slider drag
-                print("MyContentView value changed: \(value)")
+            HStack {
+                Text("\(Int(val))")
+                Spacer()
+                Button("-") {
+                    val -= 1
+                    print("-: \(val)")
+                }
+                Button("+") {
+                    val += 1
+                    print("+: \(val)")
+                }
             }
-            Text("\(Int(value))")
             Spacer()
         }
-        .padding()
-    }
-
-}
-
-protocol MyEditableThing: NSObject {
-    dynamic var value: Double { get set }
-}
-
-class EditableThingObserver {
-    var kvoToken: NSKeyValueObservation?
-    var callback: (Double) -> Void
-
-    init(thing: ViewController, callback: @escaping (Double) -> Void) {
-        self.callback = callback
-        observe(thing: thing)
-    }
-
-    func observe(thing: ViewController) {
-        kvoToken = thing.observe(\.value, options: .new) { obj, change in
-            if let newValue = change.newValue {
-                self.callback(newValue)
-            }
+        .onChange(of: val) { newValue in
+            // this happens on every change during a slider drag
+            print("MyContentView value changed: \(val)")
         }
-    }
-
-    deinit {
-        kvoToken?.invalidate()
+        .padding()
     }
 }
 
@@ -70,46 +54,19 @@ class EditableThingObserver {
 // paired with an NSContainerView via the "embed" segue.
 class MyHostingController: NSHostingController<MyContentView>
 {
-    var observer: EditableThingObserver?
-
-    weak var delegate: ViewController? {
-        didSet {
-            if let delegate {
-                observer = EditableThingObserver(thing: delegate) { newValue in
-                    if self.rootView.value != newValue {
-//                        self.rootView.value = newValue
-                        print("Observer -> SET \(newValue)")
-                        self.rootView.value = newValue
-//                        self.rootView.value.projectedValue.update()
-                    }else{
-                        print("Observer -> IGNORE \(newValue)")
-                    }
-                }
-            }
-        }
-    }
-
-    var binding: Binding<Double>?
+    @ObservedObject var model = MyModel()
 
     required init?(coder: NSCoder) {
-        let catch22 = MyContentView(value: Binding(get: {
-            return 0
-        }, set: { newValue in
-            print("FAKE binding got \(newValue)")
-        }))
-
-        super.init(rootView: catch22)
-
-        binding = Binding(get: {
-            return self.delegate?.value ?? 0
-        }, set: { newValue in
-//            print("Binding got \(newValue)")
-            if let delegate = self.delegate {
-                if delegate.value != newValue {
-                    delegate.value = newValue
-                }
-            }
+        let catch22 = Binding<Double>(get: {0}, set: {
+            newValue in
+            print("AAAA!!!!")
         })
-        self.rootView = MyContentView(value: binding!)
+        super.init(rootView: MyContentView(val: catch22))
+        self.rootView = MyContentView(val: $model.value)
+    }
+
+    func setModel(_ m: MyModel) {
+        model = m
+        self.rootView = MyContentView(val: $model.value)
     }
 }
