@@ -16,8 +16,9 @@ import SwiftUI
 class MyHostingController: NSHostingController<MyContentView>
 {
     required init?(coder: NSCoder) {
-        // This temporary model will get replaced later
-        // when this view is installed via the embed segue in ViewController
+        // This instantiates the ONE true source of truth
+        // In a real app, the model would be provided by a
+        // document or app-level owner.
         super.init(rootView: MyContentView(model: MyModel()))
     }
 }
