@@ -18,16 +18,12 @@ class MyHostingController: NSHostingController<MyContentView>
     @ObservedObject var model = MyModel()
 
     required init?(coder: NSCoder) {
-        let catch22 = Binding<Double>(get: {0}, set: {
-            newValue in
-            print("AAAA!!!!")
-        })
-        super.init(rootView: MyContentView(val: catch22))
-        self.rootView = MyContentView(val: $model.value)
+        super.init(rootView: MyContentView(model: MyModel()))
+        self.rootView = MyContentView(model: model)
     }
 
     func setModel(_ m: MyModel) {
         model = m
-        self.rootView = MyContentView(val: $model.value)
+        self.rootView = MyContentView(model: model)
     }
 }

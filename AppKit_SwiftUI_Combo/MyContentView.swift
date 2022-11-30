@@ -9,39 +9,40 @@ import SwiftUI
 
 struct MyContentView: View {
 
-    @Binding var val: Double
+//    @Binding var val: Double
+    @ObservedObject var model: MyModel
 
     var body: some View {
         VStack(alignment: .leading) {
             Text("SwiftUI")
             Divider()
-            Slider(value: $val,
+            Slider(value: $model.value,
                    in: 0...100
             ) { editing in
                 if editing {
-                    print("MyContentView slider began edit: \(val)")
+                    print("MyContentView slider began edit: \(model.value)")
                 }else{
-                    print("MyContentView slider finished edit: \(val)")
+                    print("MyContentView slider finished edit: \(model.value)")
                 }
             }
             HStack {
-                Text("\(Int(val))")
+                Text("\(Int(model.value))")
                 Spacer()
                 Button("-") {
-                    val -= 1
-                    print("-: \(val)")
+                    model.value -= 1
+                    print("-: \(model.value)")
                 }
                 Button("+") {
-                    val += 1
-                    print("+: \(val)")
+                    model.value += 1
+                    print("+: \(model.value)")
                 }
             }
             Spacer()
         }
-        .onChange(of: val) { newValue in
-            // this happens on every change during a slider drag
-            print("MyContentView value changed: \(val)")
-        }
+//        .onChange(of: model.value) { newValue in
+//            // this happens on every change during a slider drag
+//            print("MyContentView value changed: \($model.value)")
+//        }
         .padding()
     }
 }
