@@ -15,17 +15,17 @@ import SwiftUI
 // paired with an NSContainerView via the "embed" segue.
 class MyHostingController: NSHostingController<MyContentView>
 {
-    @ObservedObject var model = MyModel() {
+    @ObservedObject var model: MyModel {
         didSet {
-            // If we're given a new model, reconstruct our SwiftUI view
-            self.rootView = MyContentView(model: model)
+            // Use this one instead of the tempModel made earlier
+            self.rootView.model = model
         }
     }
 
     required init?(coder: NSCoder) {
-        // TODO: Why can't we use self.model here?
-        super.init(rootView: MyContentView(model: MyModel()))
-        // After super.init, we can reset this
-        self.rootView = MyContentView(model: model)
+        // This tempModel will get replaced later
+        let tempModel = MyModel()
+        self.model = tempModel
+        super.init(rootView: MyContentView(model: tempModel))
     }
 }
