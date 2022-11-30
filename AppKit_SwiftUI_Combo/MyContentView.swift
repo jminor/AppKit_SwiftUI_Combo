@@ -15,15 +15,6 @@ struct MyContentView: View {
         VStack(alignment: .leading) {
             Text("SwiftUI")
             Divider()
-            Slider(value: $model.value,
-                   in: 0...100
-            ) { editing in
-                if editing {
-                    print("MyContentView slider began edit: \(model.value)")
-                }else{
-                    print("MyContentView slider finished edit: \(model.value)")
-                }
-            }
             ValueAdjuster(value: $model.value)
             Spacer()
         }
@@ -45,6 +36,15 @@ struct ValueAdjuster: View {
     @Binding var value: Double
 
     var body: some View {
+        Slider(value: $value,
+               in: 0...100
+        ) { editing in
+            if editing {
+//                print("ValueAdjuster began edit: \(value)")
+            }else{
+//                print("ValueAdjuster finished edit: \(value)")
+            }
+        }
         HStack {
             Text("\(value)")
             Spacer()
