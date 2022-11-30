@@ -23,13 +23,13 @@ class ViewController: NSViewController {
     }
 
     @IBAction func more(_ sender: Any?) {
-        model.value += 1// model.value + 1
-        print("more: \(model.value)")
+        model.value += 1
+//        print("more: \(model.value)")
     }
 
     @IBAction func less(_ sender: Any?) {
-        model.value -= 1// model.value - 1
-        print("less: \(model.value)")
+        model.value -= 1
+//        print("less: \(model.value)")
     }
 
     var listener: Any?

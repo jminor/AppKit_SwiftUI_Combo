@@ -17,12 +17,15 @@ class MyHostingController: NSHostingController<MyContentView>
 {
     @ObservedObject var model = MyModel() {
         didSet {
+            // If we're given a new model, reconstruct our SwiftUI view
             self.rootView = MyContentView(model: model)
         }
     }
 
     required init?(coder: NSCoder) {
+        // TODO: Why can't we use self.model here?
         super.init(rootView: MyContentView(model: MyModel()))
+        // After super.init, we can reset this
         self.rootView = MyContentView(model: model)
     }
 }

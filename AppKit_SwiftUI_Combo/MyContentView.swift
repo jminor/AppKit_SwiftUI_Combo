@@ -9,7 +9,6 @@ import SwiftUI
 
 struct MyContentView: View {
 
-//    @Binding var val: Double
     @ObservedObject var model: MyModel
 
     var body: some View {
@@ -28,9 +27,9 @@ struct MyContentView: View {
             ValueAdjuster(value: $model.value)
             Spacer()
         }
-        .onChange(of: model.value, perform: { newValue in
-            print("MyContentView onChange: \(newValue)")
-        })
+//        .onChange(of: model.value, perform: { newValue in
+//            print("MyContentView onChange: \(newValue)")
+//        })
         .padding()
     }
 }
@@ -51,11 +50,11 @@ struct ValueAdjuster: View {
             Spacer()
             Button("-") {
                 value -= 1
-                print("-: \(value)")
+//                print("-: \(value)")
             }
             Button("+") {
                 value += 1
-                print("+: \(value)")
+//                print("+: \(value)")
             }
         }
     }
