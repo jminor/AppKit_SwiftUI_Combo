@@ -9,31 +9,40 @@ import Cocoa
 
 class ViewController: NSViewController {
 
-    var model: MyModel?
+    var model = MyModel()
 
+    // Exposed this so that controls in the Storyboard can bind to .value
     @objc dynamic var value: Double {
         get {
-            return model?.value ?? 11
+            return model.value
         }
         set {
-            model?.value = newValue
+            model.value = newValue
         }
     }
 
     @IBAction func more(_ sender: Any?) {
-        model?.value += 1// model.value + 1
-        print("more: \(model?.value ?? -1)")
+        model.value += 1// model.value + 1
+        print("more: \(model.value)")
     }
 
     @IBAction func less(_ sender: Any?) {
-        model?.value -= 1// model.value - 1
-        print("less: \(model?.value ?? -1)")
+        model.value -= 1// model.value - 1
+        print("less: \(model.value)")
     }
+
+    var listener: Any?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        // Watch for changes in the model (e.g. from MyContentView)
+        // It will stop listening when 'listener' is deallocated (or cancelled)
+        listener = model.$value.sink { newValue in
+            self.willChangeValue(for: \.value)
+            // already changed actually...
+            self.didChangeValue(for: \.value)
+        }
     }
 
     override var representedObject: Any? {
@@ -44,8 +53,8 @@ class ViewController: NSViewController {
 
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         if let hostingController = segue.destinationController as? MyHostingController {
-//            hostingController.setModel(model)
-            model = hostingController.model
+            // Use OUR model
+            hostingController.model = model
         }
     }
 }

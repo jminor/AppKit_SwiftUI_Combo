@@ -15,15 +15,14 @@ import SwiftUI
 // paired with an NSContainerView via the "embed" segue.
 class MyHostingController: NSHostingController<MyContentView>
 {
-    @ObservedObject var model = MyModel()
+    @ObservedObject var model = MyModel() {
+        didSet {
+            self.rootView = MyContentView(model: model)
+        }
+    }
 
     required init?(coder: NSCoder) {
         super.init(rootView: MyContentView(model: MyModel()))
-        self.rootView = MyContentView(model: model)
-    }
-
-    func setModel(_ m: MyModel) {
-        model = m
         self.rootView = MyContentView(model: model)
     }
 }
